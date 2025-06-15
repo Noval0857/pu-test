@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tag</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #1d3264;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #1d3264;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #16244b;
+        }
+
+        .btn-back {
+            background-color: #f9b233;
+            color: black;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            background-color: #f1a722;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header d-flex align-items-center">
+        <img src="/logo.png" alt="Logo" height="40" class="me-3">
+        <div>
+            <div>Manajemen User</div>
+            <div>BWS Banjarmasin</div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Daftar User</h5>
+                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">+ Tambah User</a>
+            </div>
+            <div class="card-body">
+                @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nama User</th>
+                            <th style="width: 150px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->username }}</td>
+                            <td>
+                                <a href="{{ route('users.edit', $user->id_user) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('users.destroy', $user->id_user) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?')">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @if($users->isEmpty())
+                        <tr>
+                            <td colspan="2" class="text-center text-muted">Belum ada user.</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <a href="{{ route('proyeks.index') }}" class="btn btn-back btn-sm">← Kembali ke Daftar Proyek</a>
+        </div>
+    </div>
+
+</body>
+</html>
