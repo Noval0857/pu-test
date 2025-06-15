@@ -56,12 +56,19 @@
 </head>
 
 <body>
-    <div class="header d-flex align-items-center">
-        <img src="logo.png" alt="Logo" height="40" class="me-3">
-        <div>
-            <div>Arsip Data</div>
-            <div>BWS Banjarmasin</div>
+    <div class="header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <div>
+                <div>Arsip Data</div>
+                <div>BWS Banjarmasin</div>
+            </div>
         </div>
+
+        <form action="{{ route('logout') }}" method="POST" class="mb-0 me-3">
+            @csrf
+            <button type="submit" class="btn btn-light btn-sm text-dark fw-bold">Logout</button>
+        </form>
     </div>
 
     <div class="container my-4">

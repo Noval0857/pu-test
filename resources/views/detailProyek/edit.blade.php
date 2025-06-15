@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,29 +41,39 @@
 
         .card {
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
+
 <body>
-    <div class="header d-flex align-items-center">
-        <img src="/logo.png" alt="Logo" height="40" class="me-3">
-        <div>
-            <div>Edit Dokumen</div>
-            <div>BWS Banjarmasin</div>
+    <div class="header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <div>
+                <div>Arsip Data</div>
+                <div>BWS Banjarmasin</div>
+            </div>
         </div>
+
+        <form action="{{ route('logout') }}" method="POST" class="mb-0 me-3">
+            @csrf
+            <button type="submit" class="btn btn-light btn-sm text-dark fw-bold">Logout</button>
+        </form>
     </div>
 
     <div class="container mt-4">
         <div class="card">
             <div class="card-header fw-bold">Edit Dokumen: {{ $detail->nama_berkas }}</div>
             <div class="card-body">
-                <form action="{{ route('detail_proyek.update', $detail->id_detail) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('detail_proyek.update', $detail->id_detail) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
                         <label for="nama_berkas" class="form-label">Nama Dokumen</label>
-                        <input type="text" class="form-control" id="nama_berkas" name="nama_berkas" value="{{ $detail->nama_berkas }}" required>
+                        <input type="text" class="form-control" id="nama_berkas" name="nama_berkas"
+                            value="{{ $detail->nama_berkas }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="url_berkas" class="form-label">Ganti File (opsional)</label>
@@ -76,4 +87,5 @@
         </div>
     </div>
 </body>
+
 </html>

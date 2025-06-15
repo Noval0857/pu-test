@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
 
         .card {
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
         .btn-primary {
@@ -44,32 +45,41 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="header d-flex align-items-center">
-    <img src="/logo.png" alt="Logo" height="40" class="me-3">
-    <div>
-        <div>Tambah Tag</div>
-        <div>BWS Banjarmasin</div>
-    </div>
-</div>
+    <div class="header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <div>
+                <div>Arsip Data</div>
+                <div>BWS Banjarmasin</div>
+            </div>
+        </div>
 
-<div class="container my-4">
-    <div class="card">
-        <div class="card-header fw-bold">Form Tambah Tag</div>
-        <div class="card-body">
-            <form action="{{ route('tags.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Tag</label>
-                    <input type="text" name="nama" id="nama" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('tags.index') }}" class="btn btn-back">← Kembali</a>
-            </form>
+        <form action="{{ route('logout') }}" method="POST" class="mb-0 me-3">
+            @csrf
+            <button type="submit" class="btn btn-light btn-sm text-dark fw-bold">Logout</button>
+        </form>
+    </div>
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header fw-bold">Form Tambah Tag</div>
+            <div class="card-body">
+                <form action="{{ route('tags.store') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Tag</label>
+                        <input type="text" name="nama" id="nama" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('tags.index') }}" class="btn btn-back">← Kembali</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
+
 </html>

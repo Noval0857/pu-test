@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,18 +41,26 @@
 
         .card {
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
+
 <body>
 
-    <div class="header d-flex align-items-center">
-        <img src="/logo.png" alt="Logo" height="40" class="me-3">
-        <div>
-            <div>Manajemen User</div>
-            <div>BWS Banjarmasin</div>
+    <div class="header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <div>
+                <div>Arsip Data</div>
+                <div>BWS Banjarmasin</div>
+            </div>
         </div>
+
+        <form action="{{ route('logout') }}" method="POST" class="mb-0 me-3">
+            @csrf
+            <button type="submit" class="btn btn-light btn-sm text-dark fw-bold">Logout</button>
+        </form>
     </div>
 
     <div class="container my-4">
@@ -61,7 +70,7 @@
                 <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">+ Tambah User</a>
             </div>
             <div class="card-body">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
@@ -73,23 +82,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
-                        <tr>
-                            <td>{{ $user->username }}</td>
-                            <td>
-                                <a href="{{ route('users.edit', $user->id_user) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('users.destroy', $user->id_user) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?')">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $user->username }}</td>
+                                <td>
+                                    <a href="{{ route('users.edit', $user->id_user) }}"
+                                        class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{{ route('users.destroy', $user->id_user) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Hapus user ini?')">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
-                        @if($users->isEmpty())
-                        <tr>
-                            <td colspan="2" class="text-center text-muted">Belum ada user.</td>
-                        </tr>
+                        @if ($users->isEmpty())
+                            <tr>
+                                <td colspan="2" class="text-center text-muted">Belum ada user.</td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
@@ -102,4 +114,5 @@
     </div>
 
 </body>
+
 </html>
