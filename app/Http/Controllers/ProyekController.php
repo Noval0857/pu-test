@@ -20,6 +20,10 @@ class ProyekController extends Controller
             $proyeks->where('nama_proyek', 'like', '%' . $request->nama . '%');
         }
 
+        if ($request->filled('kontraktor')) {
+            $proyeks->where('kontraktor', 'like', '%' . $request->kontraktor . '%');
+        }
+
         if ($request->filled('tahun')) {
             $proyeks->where('tahun', $request->tahun);
         }
@@ -39,8 +43,7 @@ class ProyekController extends Controller
             'proyeks' => $proyeks->get(),
             'tags' => $tags
         ]);
-        // $proyeks = Proyek::all();
-        // return view('proyek.index', compact('proyeks'));
+
     }
 
     public function create()
@@ -53,6 +56,7 @@ class ProyekController extends Controller
     {
         $request->validate([
             'nama_proyek' => 'required|string|max:255',
+            'kontraktor' => 'required|string|max:255',
             'tahun' => 'required|integer',
             'nilai' => 'required|integer',
             'tags' => 'array|exists:tags,id_tag',
@@ -60,12 +64,13 @@ class ProyekController extends Controller
 
         $proyek = Proyek::create([
             'nama_proyek' => $request->nama_proyek,
+            'kontraktor' => $request->kontraktor,
             'tahun' => $request->tahun,
             'nilai' => $request->nilai,
         ]);
 
         $proyek->tags()->attach($request->tags);
-        return redirect()->route('proyeks.index')->with('success', 'Proyek berhasil ditambahkan.');
+        return redirect()->route('proyek.index')->with('success', 'Proyek berhasil ditambahkan.');
     }
 
     public function edit($id_proyek)
@@ -79,6 +84,7 @@ class ProyekController extends Controller
     {
         $request->validate([
             'nama_proyek' => 'required|string|max:255',
+            'kontraktor' => 'required|string|max:255',
             'tahun' => 'required|integer',
             'nilai' => 'required|integer',
             'tags' => 'array'
@@ -87,18 +93,19 @@ class ProyekController extends Controller
         $proyek = Proyek::findOrFail($id);
         $proyek->update([
             'nama_proyek' => $request->nama_proyek,
+            'kontraktor' => $request->kontraktor,
             'tahun' => $request->tahun,
             'nilai' => $request->nilai,
         ]);
 
         $proyek->tags()->sync($request->tags);
-        return redirect()->route('proyeks.index')->with('success', 'Proyek berhasil diperbarui.');
+        return redirect()->route('proyek.index')->with('success', 'Proyek berhasil diperbarui.');
     }
 
     public function destroy(Proyek $proyek)
     {
         $proyek->delete();
-        return redirect()->route('proyeks.index')->with('success', 'Proyek berhasil dihapus.');
+        return redirect()->route('proyek.index')->with('success', 'Proyek berhasil dihapus.');
     }
 
 }

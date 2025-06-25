@@ -87,7 +87,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('proyeks.update', $proyek->id_proyek) }}" method="POST">
+                <form action="{{ route('proyek.update', $proyek->id_proyek) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -95,6 +95,12 @@
                         <label for="nama_proyek" class="form-label">Nama Proyek</label>
                         <input type="text" name="nama_proyek" class="form-control"
                             value="{{ old('nama_proyek', $proyek->nama_proyek) }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="kontraktor" class="form-label">Kontraktor</label>
+                        <input type="text" name="kontraktor" class="form-control"
+                            value="{{ old('kontraktor', $proyek->kontraktor) }}" required>
                     </div>
 
                     <div class="mb-3">
@@ -126,7 +132,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <a href="{{ route('proyeks.index') }}" class="btn btn-secondary">Batal</a>
+                        <a href="{{ route('proyek.index') }}" class="btn btn-secondary">Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>

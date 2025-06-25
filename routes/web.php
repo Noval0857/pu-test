@@ -7,6 +7,7 @@ use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\DetailProyekController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SuratController;
 
 
 
@@ -26,13 +27,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [ProyekController::class, 'index']);
 
     // Semua bisa lihat
-    Route::get('/proyeks', [ProyekController::class, 'index'])->name('proyeks.index');
+    Route::get('/proyek', [ProyekController::class, 'index'])->name('proyek.index');
     Route::get('/proyeks/{proyek}/detail_proyek', [DetailProyekController::class, 'index'])->name('detail_proyek.index');
+
+    Route::get('/surat', [SuratController::class, 'index'])->name('surat.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 });
 
 // Hanya admin yang bisa kelola data
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('proyeks', ProyekController::class)->except(['index', 'show']);
+    Route::resource('proyek', ProyekController::class)->except(['index', 'show']);
     Route::resource('tags', TagController::class);
     Route::resource('users', UserController::class);
 

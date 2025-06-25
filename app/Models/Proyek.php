@@ -8,7 +8,7 @@ class Proyek extends Model
 {
     protected $table = 'proyeks';
     protected $primaryKey = 'id_proyek';
-    protected $fillable = ['nama_proyek', 'tahun', 'nilai'];
+    protected $fillable = ['nama_proyek', 'kontraktor', 'tahun', 'nilai'];
     public $timestamps = true;
     
 

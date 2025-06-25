@@ -75,7 +75,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="url_berkas" class="form-label">Upload File (PDF)</label>
-                        <input type="file" class="form-control" id="url_berkas" name="url_berkas" accept=".pdf"
+                        <input type="text" class="form-control" id="url_berkas" name="url_berkas"
                             required>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>

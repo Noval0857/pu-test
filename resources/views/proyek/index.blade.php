@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Proyek</title>
+    <title>Daftar Paket</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -58,7 +60,8 @@
 <body>
     <div class="header d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <img src="{{ asset('storage/gambar/logo.png') }}" alt="Logo" height="40" class="me-3">
+
             <div>
                 <div>Arsip Data</div>
                 <div>BWS Banjarmasin</div>
@@ -71,16 +74,16 @@
         </form>
     </div>
 
-    <div class="container my-4">
+    <div class="container my-5">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span class="fw-bold">Daftar Proyek</span>
+                        <span class="fw-bold">Daftar Paket</span>
                         @if (Auth::user()->role == 'admin')
                             <div>
-                                <a href="{{ route('proyeks.create') }}" class="btn btn-primary btn-sm">+ Tambah
-                                    Proyek</a>
+                                <a href="{{ route('proyek.create') }}" class="btn btn-primary btn-sm">+ Tambah
+                                    Paket</a>
                                 <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">+ Tambah User</a>
                             </div>
                         @endif
@@ -92,7 +95,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Nama Proyek</th>
+                                    <th>Nama Paket</th>
+                                    <th>Kontraktor</th>
                                     <th>Tahun</th>
                                     <th>Nilai</th>
 
@@ -107,7 +111,7 @@
                                         <td>
                                             <a href="{{ route('detail_proyek.index', $proyek->id_proyek) }}"
                                                 class="d-block text-decoration-none text-dark">
-                                                <span class="folder-icon">&#128193;</span>
+                                                <!-- <span class="folder-icon">&#128193;</span> -->
                                                 <span class="project-title">{{ $proyek->nama_proyek }}</span>
                                             </a>
                                             <small class="text-muted">
@@ -118,20 +122,27 @@
                                                 @endif
                                             </small>
                                         </td>
+                                        <td>{{ $proyek->kontraktor }}</td>
                                         <td>{{ $proyek->tahun }}</td>
                                         <td>Rp {{ number_format($proyek->nilai, 0, ',', '.') }}</td>
 
                                         <td>
                                             @if (Auth::user()->role == 'admin')
-                                                <a href="{{ route('proyeks.edit', $proyek->id_proyek) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="{{ route('proyeks.destroy', $proyek->id_proyek) }}"
-                                                    method="POST" class="d-inline">
+                                                <a href="{{ route('proyek.edit', $proyek->id_proyek) }}"
+                                                    class="btn btn-sm btn-warning" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <form action="{{ route('proyek.destroy', $proyek->id_proyek) }}" method="POST"
+                                                    class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger"
-                                                        onclick="return confirm('Hapus proyek ini?')">Hapus</button>
+                                                        onclick="return confirm('Hapus proyek ini?')" title="Hapus">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
                                                 </form>
+
                                             @endif
                                         </td>
                                     </tr>
@@ -144,18 +155,23 @@
             <div class="col-md-4">
                 <div class="filter-box">
                     <div class="fw-bold mb-3">Gunakan Filter Pencarian</div>
-                    <form method="GET" action="{{ route('proyeks.index') }}">
+                    <form method="GET" action="{{ route('proyek.index') }}">
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="nama" placeholder="Nama Proyek">
+                            <input type="text" class="form-control" name="nama" placeholder="Nama Paket">
                         </div>
                         <div class="mb-3">
                             <input type="number" class="form-control" name="tahun" placeholder="Tahun">
                         </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="kontraktor" placeholder="Kontraktor"
+                                value="{{ request('kontraktor') }}">
+                        </div>
+
                         @if (Auth::user()->role == 'admin')
                             <a href="{{ route('tags.index') }}" class="btn btn-primary btn-sm">+ Tambah Tag</a>
                         @endif
 
-                        <div class="fw-bold mb-2">Atau gunakan Tag</div>
+                        <div class="fw-bold mb-2">Atau Gunakan Tag</div>
                         <div class="tag-list mb-3">
                             @foreach ($tags as $tag)
                                 <label>

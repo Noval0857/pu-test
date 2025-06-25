@@ -14,12 +14,49 @@ class AuthController extends Controller
         return view('login');
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->only('username', 'password');
+
+    //     // Cari user berdasarkan username dan password langsung (plaintext)
+    //     $user = User::where('username', $credentials['username'])
+    //         ->where('password', $credentials['password'])
+    //         ->first();
+
+    //     if ($user) {
+    //         // Login manual tanpa guard
+    //         Auth::login($user);
+    //         return redirect()->intended('/');
+    //     }
+
+    //     return back()->withErrors([
+    //         'username' => 'Username atau password salah.',
+    //     ]);
+    // }
+
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('');
+        // Cari user berdasarkan username dan password (plaintext)
+        $user = User::where('username', $credentials['username'])
+            ->where('password', $credentials['password'])
+            ->first();
+
+        if ($user) {
+            // Login manual tanpa guard
+            Auth::login($user);
+
+            // Cek tombol yang ditekan berdasarkan name="login_type"
+            $loginType = $request->input('login_type');
+
+            if ($loginType === 'paket') {
+                return redirect()->route('proyek.index');
+            } elseif ($loginType === 'surat') {
+                return redirect()->route('surat.index');
+            } else {
+                return redirect()->route('dashboard'); // fallback kalau tidak ada tombol spesifik
+            }
         }
 
         return back()->withErrors([
@@ -27,10 +64,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function showRegister()
-    {
-        return view('register');
-    }
+
 
     public function register(Request $request)
     {
@@ -53,4 +87,3 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 }
-

@@ -87,13 +87,19 @@
                     </div>
                 @endif
 
-                <form action="{{ route('proyeks.store') }}" method="POST">
+                <form action="{{ route('proyek.store') }}" method="POST">
                     @csrf
 
                     <div class="mb-3">
                         <label for="nama_proyek" class="form-label">Nama Proyek</label>
                         <input type="text" name="nama_proyek" class="form-control" value="{{ old('nama_proyek') }}"
                             required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="kontraktor" class="form-label">Kontraktor</label>
+                        <input type="text" name="kontraktor" class="form-control"
+                            value="{{ old('kontraktor') }}" required>
                     </div>
 
                     <div class="mb-3">
@@ -111,8 +117,8 @@
                         <div class="form-check">
                             @foreach ($tags as $tag)
                                 <div class="form-check">
-                                    <input type="checkbox" name="tags[]" value="{{ $tag->id_tag }}"
-                                        class="form-check-input" id="tag{{ $tag->id_tag }}">
+                                    <input type="checkbox" name="tags[]" value="{{ $tag->id_tag }}" class="form-check-input"
+                                        id="tag{{ $tag->id_tag }}">
                                     <label class="form-check-label" for="tag{{ $tag->id_tag }}">
                                         {{ $tag->nama }}
                                     </label>
@@ -122,7 +128,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <a href="{{ route('proyeks.index') }}" class="btn btn-secondary">Batal</a>
+                        <a href="{{ route('proyek.index') }}" class="btn btn-secondary">Batal</a>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </form>

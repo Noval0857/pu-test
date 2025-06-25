@@ -50,7 +50,7 @@
 
     <div class="header d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <img src="/storage/gambar/logo.png" alt="Logo" height="40" class="me-3">
             <div>
                 <div>Arsip Data</div>
                 <div>BWS Banjarmasin</div>

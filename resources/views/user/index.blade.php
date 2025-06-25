@@ -50,7 +50,7 @@
 
     <div class="header d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-            <img src="logo.png" alt="Logo" height="40" class="me-3">
+            <img src="/storage/gambar/logo.png" alt="Logo" height="40" class="me-3">
             <div>
                 <div>Arsip Data</div>
                 <div>BWS Banjarmasin</div>
@@ -78,6 +78,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>Nama User</th>
+                            <th>Password</th>
                             <th style="width: 150px;">Aksi</th>
                         </tr>
                     </thead>
@@ -85,6 +86,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->username }}</td>
+                                <td>{{ $user->password }}</td>
                                 <td>
                                     <a href="{{ route('users.edit', $user->id_user) }}"
                                         class="btn btn-warning btn-sm">Edit</a>
@@ -109,7 +111,7 @@
         </div>
 
         <div class="mt-3">
-            <a href="{{ route('proyeks.index') }}" class="btn btn-back btn-sm">← Kembali ke Daftar Proyek</a>
+            <a href="{{ route('proyek.index') }}" class="btn btn-back btn-sm">← Kembali ke Daftar Proyek</a>
         </div>
     </div>
 

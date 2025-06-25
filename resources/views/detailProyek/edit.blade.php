@@ -81,7 +81,7 @@
                         <small class="text-muted">Abaikan jika tidak ingin mengganti file.</small>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('proyeks.show', $detail->id_proyek) }}" class="btn btn-back">← Kembali</a>
+                    <a href="{{ route('proyek.show', $detail->id_proyek) }}" class="btn btn-back">← Kembali</a>
                 </form>
             </div>
         </div>

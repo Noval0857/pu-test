@@ -24,15 +24,21 @@ class UserController extends Controller
     // Simpan user baru
     public function store(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        // $request->validate([
+        //     'username' => 'required|string|max:255',
+        //     'password' => 'required|string|min:6|confirmed',
+        // ]);
 
-        User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-        ]);
+        // User::create([
+        //     'username' => $request->username,
+        //     'password' => ($request->password),
+        // ]);
+
+        $user = new User;
+        $user->username = $request->username;
+        $user->password = $request->password; // Langsung simpan tanpa hash
+        $user->save();
+
 
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
     }
@@ -57,7 +63,7 @@ class UserController extends Controller
         $user->username = $request->username;
 
         if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+            $user->password = ($request->password);
         }
 
         $user->save();
@@ -72,6 +78,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('user.index')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
 }
